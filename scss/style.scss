@@ -1,0 +1,89 @@
+#seeker {
+  background : url('../img/bg6.jpg') no-repeat;
+  background-size: cover;
+}
+
+#provider {
+  background : url('../img/bg7.jpg') no-repeat;
+  background-size: cover;
+}
+
+.navbar-portal{
+  border-bottom: #fff 1px solid;
+  opacity: 0.9;
+}
+
+.nav-link-portal{
+  font-size: 17px;
+  margin-right: 13px;
+}
+
+.nav-item-portal {
+  padding-right: 8px;
+  text-decoration-color: #fff;
+}
+
+#Posts{
+  .outer-post{
+    margin-top: 100px;
+
+    .main-post{
+      border: #fff 1px solid;
+      margin-top: 20px;
+      margin-bottom: 20px;
+      padding-top: 10px;
+      padding-bottom: 10px;
+
+      .card-body{
+        .container{
+          height: 10vh;
+          width: 10vh;
+        }
+      }
+    }
+  }
+}
+
+#jobseeker-register{
+
+  .jobseeker_form{
+    border: 1px solid #fff;
+    padding: 20px 30px;
+    margin-top: 14.5vh;
+    -webkit-box-shadow: -2px 7px 20px 11px rgba(0,0,0,0.3);
+    -moz-box-shadow: -2px 7px 20px 11px rgba(0,0,0,0.3);
+    box-shadow: -2px 7px 20px 11px rgba(0,0,0,0.3);
+  }
+
+  #font_change{
+    font-family: 'the_bold_fontbold';
+  }
+
+  button{
+    -webkit-box-shadow: 1px 4px 12px 7px rgba(0,0,0,0.3);
+    -moz-box-shadow: 1px 4px 12px 7px rgba(0,0,0,0.3);
+    box-shadow: 1px 4px 12px 7px rgba(0,0,0,0.3);
+  }
+}
+
+#jobprovider-register{
+
+  .jobprovider_form{
+    border: 1px solid #fff;
+    padding: 20px 30px;
+    margin-top: 14.5vh;
+    -webkit-box-shadow: -2px 7px 20px 11px rgba(0,0,0,0.3);
+    -moz-box-shadow: -2px 7px 20px 11px rgba(0,0,0,0.3);
+    box-shadow: -2px 7px 20px 11px rgba(0,0,0,0.3);
+  }
+
+  #font_change{
+    font-family: 'the_bold_fontbold';
+  }
+
+  button{
+    -webkit-box-shadow: 1px 4px 12px 7px rgba(0,0,0,0.3);
+    -moz-box-shadow: 1px 4px 12px 7px rgba(0,0,0,0.3);
+    box-shadow: 1px 4px 12px 7px rgba(0,0,0,0.3);
+  }
+}

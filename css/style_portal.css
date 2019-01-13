@@ -1,0 +1,77 @@
+#seeker {
+  background : url('../img/bg6.jpg') no-repeat;
+  background-size: cover;
+}
+
+#provider {
+  background : url('../img/bg7.jpg') no-repeat;
+  background-size: cover;
+}
+
+
+.navbar-portal{
+  border-bottom: #fff 1px solid;
+  opacity: 0.9;
+}
+
+.nav-link-portal{
+  font-size: 17px;
+  margin-right: 13px;
+}
+
+.nav-item-portal {
+  padding-right: 8px;
+  text-decoration-color: #fff;
+}
+
+.outer-post{
+  margin-top: 100px;
+  }
+
+#Posts{
+  margin-top: 15px;
+}
+
+#job_sequence{
+  margin-top:50px;
+  -webkit-box-shadow: 0px 4px 9px 6px rgba(0,0,0,0.3);
+  -moz-box-shadow: 0px 4px 9px 6px rgba(0,0,0,0.3);
+  box-shadow: 0px 4px 9px 6px rgba(0,0,0,0.3);
+}
+
+.main-post{
+  border: #7d2323 1px solid;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  }
+
+.job-title{
+  margin-top: 10px;
+}
+
+.card-body-post{
+    height: 10vh;
+    width: 10vh;
+  }
+
+.register_form {
+  border: #fff 1px solid;
+
+    padding: 20px 30px;
+    margin-top: 14.5vh;
+    -webkit-box-shadow: -2px 7px 20px 11px rgba(0,0,0,0.3);
+    -moz-box-shadow: -2px 7px 20px 11px rgba(0,0,0,0.3);
+    box-shadow: -2px 7px 20px 11px rgba(0,0,0,0.3);
+  }
+
+  #font_change{
+    font-family: 'the_bold_fontbold';
+  }
+
+  button{
+    -webkit-box-shadow: 1px 4px 12px 7px rgba(0,0,0,0.3);
+    -moz-box-shadow: 1px 4px 12px 7px rgba(0,0,0,0.3);
+    box-shadow: 1px 4px 12px 7px rgba(0,0,0,0.3);
+  }
