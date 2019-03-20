@@ -1,12 +1,46 @@
-/*
-  Theme Name: Regna
-  Theme URL: https://bootstrapmade.com/regna-bootstrap-onepage-template/
-  Author: BootstrapMade.com
-  License: https://bootstrapmade.com/license/
-*/
-/*--------------------------------------------------------------
-# General
---------------------------------------------------------------*/
+.searchbar{
+    margin-bottom: auto;
+    margin-top: auto;
+    height: 60px;
+    background-color: #ccd3e2;
+    border-radius: 30px;
+    padding: 10px;
+    }
+
+.search_input{
+    color: black;
+    border: 0;
+    outline: 0;
+    background: none;
+    width: 450px;
+    caret-color:transparent;
+    line-height: 40px;
+    /* transition: width 0.4s linear; */
+    }
+
+.searchbar:hover > .search_input{
+    /* padding: 0 10px;
+    width: 450px; */
+    caret-color:red;
+    /* transition: width 0.4s linear; */
+    }
+
+.searchbar:hover > .search_icon{
+    background: #ccd3e2;
+    color: #e74c3c;
+    }
+
+.search_icon{
+    height: 40px;
+
+    float: right;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    color:black;
+    }
+
 body {
   background: #fff;
   color: #666666;
