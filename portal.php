@@ -24,6 +24,20 @@
 
 <div class="container-fluid">
 
+  <!-- <div class="flex">
+    <div class="row">
+
+      <a class="btn btn-light btn-lg flexitem" href="jobseeker_home.php"><span class="fa fa-briefcase mr-3"></span>JobSeeker</a>
+      
+    </div>
+
+    <div class="row">
+      
+      <a class="btn btn-light btn-lg flexitem" href="jobprovider_home.php"><span class="fa fa-address-card mr-3"></span>JobProvider</a>
+        
+    </div>
+  </div> -->
+
   <div class="row">
     <div class="col-md-4"></div>
     <div class="col-md-4">
