@@ -32,7 +32,7 @@
             <a href="#home" class="nav-link nav-link-portal" data-toggle="modal" data-target="#LoginModal"><span class="fa fa-sign-in pr-2"></span>Login</a>
           </li>
           <li class="nav-item nav-item-portal">
-            <a href="register_jobseeker.php" class="nav-link nav-link-portal"><span class="fa fa-user pr-2"></span>Register</a>
+            <a href="register.php" class="nav-link nav-link-portal"><span class="fa fa-user pr-2"></span>Register</a>
           </li>
           <li class="nav-item nav-item-portal">
             <a href="jobprovider_home.php" class="nav-link nav-link-portal"><span class="fa fa-address-card pr-2"></span>JobProvider</a>
