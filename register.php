@@ -119,7 +119,7 @@
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="first_name">First Name</label>
-                                <input name="Fname" type="text" class="form-control" placeholder="First Name">
+                                <input name="Fname" type="text" class="form-control" placeholder="First Name" required>
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="last_name">Last Name</label>
@@ -129,21 +129,21 @@
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="inputEmail4">Email</label>
-                                <input name="Email" type="email" class="form-control" placeholder="Email">
+                                <input name="Email" type="email" class="form-control" placeholder="Email" required>
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="inputPassword4">Password</label>
-                                <input name="Pass" type="password" class="form-control" placeholder="Password">
+                                <input name="Pass" type="password" class="form-control" placeholder="Password" required>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="inputAddress">Address</label>
-                            <input name="Addr" type="text" class="form-control"placeholder="1234 Main St">
+                            <input name="Addr" type="text" class="form-control"placeholder="1234 Main St" required>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-4">
                                 <label for="Contact">Contact</label>
-                                <input name="Contact" type="tel" class="form-control" placeholder="99XXXXXXX">
+                                <input name="Contact" type="tel" class="form-control" pattern=".{10,}" required placeholder="99XXXXXXX">
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="Contact"> Alternate Contact</label>
@@ -151,7 +151,7 @@
                             </div>
                             <div class="date form-group col-md-4">
                                 <label for="DOB">DOB</label>
-                                <input name="DOB" type="date" class="form-control">
+                                <input name="DOB" type="date" class="form-control" required>
                             </div>
                         </div>
                         <button name="submit" type="submit" class="btn btn-dark btn-block mt-3">Sign in</button>
