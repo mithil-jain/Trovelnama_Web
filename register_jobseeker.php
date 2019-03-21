@@ -10,6 +10,8 @@
   <link rel="stylesheet" href="css/bold_font.css">
   <link rel="stylesheet" href="css/style_portal.css">
 
+  <link rel="stylesheet" href="css/register.css">
+
   <link href="img/favicon.png" rel="icon">
   <link href="img/apple-touch-icon.png" rel="apple-touch-icon">
 
@@ -79,43 +81,19 @@
     <input type="text" class="form-control"placeholder="1234 Main St">
   </div>
   <div class="form-row">
-    <div class="form-group col-md-3">
+    <div class="form-group col-md-4">
       <label for="Contact">Contact</label>
       <input type="tel" class="form-control" placeholder="99XXXXXXX">
     </div>
-    <div class="form-group col-md-3">
+    <div class="form-group col-md-4">
       <label for="Contact"> Alternate Contact</label>
       <input type="tel" class="form-control" placeholder="99XXXXXXX">
     </div>
-    <div class="form-group col-md-3">
+    <div class="date form-group col-md-4">
       <label for="DOB">DOB</label>
       <input type="date" class="form-control">
     </div>
-    <div class="form-group col-md-3">
-      <label for="Location">Travel Location</label>
-      <input type="text" class="form-control">
-    </div>
   </div>
-  <div class="form-row">
-    <div class="form-group col-md-6">
-      <label for="duraition">Duration of Travel (Days)</label>
-      <input type="number" class="form-control">
-    </div>
-    <div class="form-group col-md-6">
-      <label for="experience">Experience (years)</label>
-      <select class="form-control">
-        <option value="">0</option>
-        <option value=""><1</option>
-        <option value="">1</option>
-        <option value="">2</option>
-        <option value="">3</option>
-        <option value="">4</option>
-        <option value="">5</option>
-        <option value="">>5</option>
-      </select>
-    </div>
-  </div>
-
   <button type="submit" class="btn btn-dark btn-block mt-3">Sign in</button>
 </form>
 </div>
