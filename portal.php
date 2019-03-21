@@ -19,7 +19,7 @@
   <div id="back"></div>
   <div id="front"></div>
 
-<a href="index.html"><img src="img/logo.png" alt="" title="" class="fixed-top mt-4 ml-4" /></img></a>
+<a href="index.php"><img src="img/logo.png" alt="" title="" class="fixed-top mt-4 ml-4" /></img></a>
 
 
 <div class="container-fluid">
@@ -28,7 +28,7 @@
     <div class="col-md-4"></div>
     <div class="col-md-4">
       <div class="container text-center container-top">
-        <a class="btn btn-light btn-lg btn-block" href="jobseeker_home.html"><span class="fa fa-briefcase mr-3"></span>JobSeeker</a>
+        <a class="btn btn-light btn-lg btn-block" href="jobseeker_home.php"><span class="fa fa-briefcase mr-3"></span>JobSeeker</a>
       </div>
     </div>
     <div class="col-md-4"></div>
@@ -38,7 +38,7 @@
     <div class="col-md-4"></div>
     <div class="col-md-4">
       <div class="container text-center container-bottom">
-        <a class="btn btn-light btn-lg btn-block" href="jobprovider_home.html"><span class="fa fa-address-card mr-3"></span>JobProvider</a>
+        <a class="btn btn-light btn-lg btn-block" href="jobprovider_home.php"><span class="fa fa-address-card mr-3"></span>JobProvider</a>
       </div>
     </div>
     <div class="col-md-4"></div>

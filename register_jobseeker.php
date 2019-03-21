@@ -19,23 +19,23 @@
 <!-- Navigation Bar -->
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top navbar-portal">
   <div class="container">
-    <a href="index.html" class="navbar-brand"><img src="img/logo.png" /></img> JobSeeker</a>
+    <a href="index.php" class="navbar-brand"><img src="img/logo.png" /></img> JobSeeker</a>
     <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarCollapse">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item nav-item-portal">
-          <a href="jobseeker_home.html" class="nav-link nav-link-portal"><span class="fa fa-sticky-note pr-2"></span>Posts</a>
+          <a href="jobseeker_home.php" class="nav-link nav-link-portal"><span class="fa fa-sticky-note pr-2"></span>Posts</a>
         </li>
         <li class="nav-item nav-item-portal">
           <a href="#home" class="nav-link nav-link-portal" data-toggle="modal" data-target="#LoginModal"><span class="fa fa-sign-in pr-2"></span>Login</a>
         </li>
         <li class="nav-item nav-item-portal">
-          <a href="register_jobseeker.html" class="nav-link nav-link-portal"><span class="fa fa-user pr-2"></span>Register</a>
+          <a href="register_jobseeker.php" class="nav-link nav-link-portal"><span class="fa fa-user pr-2"></span>Register</a>
         </li>
         <li class="nav-item nav-item-portal">
-          <a href="jobprovider_home.html" class="nav-link nav-link-portal"><span class="fa fa-address-card pr-2"></span>JobProvider</a>
+          <a href="jobprovider_home.php" class="nav-link nav-link-portal"><span class="fa fa-address-card pr-2"></span>JobProvider</a>
         </li>
       </ul>
     </div>

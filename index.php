@@ -75,8 +75,8 @@
         <br>
       <h2>The stories of invaluable discoveries <hr> Stories that unfold when you hit the road <hr> Stories of going places and meeting faces!</h2>
       <div class="row">
-        <div class="col-sm-6"><a href="jobseeker_home.html" class="btn-get-started">JobSeeker</a></div>
-        <div class="col-sm-6"><a href="jobprovider_home.html" class="btn-get-started">JobProvider</a></div>
+        <div class="col-sm-6"><a href="jobseeker_home.php" class="btn-get-started">JobSeeker</a></div>
+        <div class="col-sm-6"><a href="jobprovider_home.php" class="btn-get-started">JobProvider</a></div>
       </div>
     </div>
   </section><!-- #hero -->
@@ -192,7 +192,7 @@
             <p class="cta-text"> Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
           </div>
           <div class="col-lg-3 cta-btn-container text-center">
-            <a class="cta-btn align-middle" href="portal.html">Go to Job Portal</a>
+            <a class="cta-btn align-middle" href="portal.php">Go to Job Portal</a>
           </div>
         </div>
 
