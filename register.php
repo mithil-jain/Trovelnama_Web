@@ -23,7 +23,14 @@
 <body id="seeker">
 
 <?php
+	session_start();
+
+	if (isset($_SESSION['UID']) && $_SESSION['UID']!='') {
+		header("Location: portal.php");
+	}
+
 	$GLOBALS['flag'] = 0;
+	
 	function PopMsg($msg, $ret) {
 		$GLOBALS['message'] = $msg;
 		$GLOBALS['flag'] = $ret;
@@ -32,6 +39,30 @@
 					$('#RegSuccess').modal('show');
 				});
 			</script>";
+	}
+
+	$GLOBALS['error'] = '';
+	if (isset($_POST["LoginSubmit"])) {
+		echo "<script>$('#LoginModal').modal({backdrop:'static', keyboard:false});</script>";
+
+		if (isset($_POST["Email"]) && isset($_POST["Pass"]) && $_POST["Email"]!="" && $_POST["Pass"]!="") {
+			include 'conn.php';
+			
+			$sql = "select UID from users where Email=\"".$_POST["Email"]."\" and Pass=\"".$_POST["Pass"]."\"";
+			$data = mysqli_query($conn, $sql) or die();
+			$row = mysqli_fetch_assoc($data);
+
+			if (isset($row['UID']) && $row['UID']!='') {
+				$_SESSION["UID"] = $row["UID"];
+				header("Location: portal.php");
+			}
+
+			else {
+				$GLOBALS['error'] = 'Incorrect Email/ Password, please try again.';
+			}
+
+			mysqli_close($conn);
+		}
 	}
 	
     if (isset($_POST["submit"])) {
@@ -51,6 +82,7 @@
     	mysqli_close($conn);
     }
 ?>
+
 
 
 <!-- Navigation Bar -->
@@ -136,7 +168,7 @@
             <div class="modal-dialog modal-md">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h6 class="modal-title"><?php echo $GLOBALS['message']?></h6>
+                        <h6 class="modal-title"><?php echo $GLOBALS['message'];?></h6>
                         <button class="close" data-dismiss="modal"><span>&times;</span></button>
           	        </div>
           	        <div class="modal-footer">
@@ -151,29 +183,29 @@
         <div class="modal fade" id="LoginModal">
             <div class="modal-dialog modal-md">
                 <div class="modal-content">
-                    <div class="modal-header bg-dark text-white">
-                        <h6 class="modal-title">Login as JOBSEEKER</h6>
-                        <button class="close" data-dismiss="modal"><span>&times;</span></button>
-                    </div>
-                    <div class="modal-body">
-                        <form>
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                                <input id="email" type="text" class="form-control" name="email" placeholder="Email">
-                            </div>
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-lock"></i></span>
-                                <input id="password" type="password" class="form-control" name="password" placeholder="Password">
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
-                        <button class="btn btn-dark btn-sm" data-dismiss="modal">Log In</button>
-                    </div>
+                    <form action="" method="POST">
+	                    <div class="modal-header bg-dark text-white">
+	                        <h6 class="modal-title">Login</h6>
+	                        <button class="close" data-dismiss="modal"><span>&times;</span></button>
+	                    </div>
+	                    <div class="modal-body">
+	                        <div class="input-group">
+	                            <span class="input-group-addon"><i class="fa fa-user"></i></span>
+	                            <input name="Email" id="email" type="text" class="form-control" name="email" placeholder="Email">
+	                        </div>
+	            	        <div class="input-group">
+	                	        <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+	                    	    <input name="Pass" id="password" type="password" class="form-control" name="password" placeholder="Password">
+	                        </div>
+	                        <div><?php echo $GLOBALS['error'];?></div>
+	                    </div>
+	                    <div class="modal-footer">
+	                        <button class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+	                        <button name="LoginSubmit" class="btn btn-dark btn-sm">Log In</button>
+	                    </div>
+	                </form>
                 </div>
             </div>
         </div>
-
 </body>
 </html>

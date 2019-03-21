@@ -16,6 +16,33 @@
 </head>
 <body id="seeker_home">
 
+
+<?php
+  session_start();
+  $GLOBALS['error'] = '';
+  if (isset($_POST["LoginSubmit"])) {
+    echo "<script>$('#LoginModal').modal({backdrop:'static', keyboard:false});</script>";
+
+    if (isset($_POST["Email"]) && isset($_POST["Pass"]) && $_POST["Email"]!="" && $_POST["Pass"]!="") {
+      include 'conn.php';
+      
+      $sql = "select UID from users where Email=\"".$_POST["Email"]."\" and Pass=\"".$_POST["Pass"]."\"";
+      $data = mysqli_query($conn, $sql) or die();
+      $row = mysqli_fetch_assoc($data);
+
+      if (isset($row['UID']) && $row['UID']!='') {
+        $_SESSION["UID"] = $row["UID"];
+        header("Location: portal.php");
+      }
+
+      else {
+        $GLOBALS['error'] = 'Incorrect Email/ Password, please try again.';
+      }
+
+      mysqli_close($conn);
+    }
+  }
+?>
   <!-- Navigation Bar -->
   <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top navbar-portal">
     <div class="container">
@@ -28,12 +55,16 @@
           <li class="nav-item nav-item-portal">
             <a href="jobseeker_home.php" class="nav-link nav-link-portal"><span class="fa fa-sticky-note pr-2"></span>Posts</a>
           </li>
-          <li class="nav-item nav-item-portal">
-            <a href="#home" class="nav-link nav-link-portal" data-toggle="modal" data-target="#LoginModal"><span class="fa fa-sign-in pr-2"></span>Login</a>
-          </li>
-          <li class="nav-item nav-item-portal">
-            <a href="register.php" class="nav-link nav-link-portal"><span class="fa fa-user pr-2"></span>Register</a>
-          </li>
+          <?php
+            if(!isset($_SESSION["UID"]) || $_SESSION["UID"]=="") {
+              echo '<li class="nav-item nav-item-portal">
+                    <a href="#home" class="nav-link nav-link-portal" data-toggle="modal" data-target="#LoginModal"><span class="fa fa-sign-in pr-2"></span>Login</a>
+                  </li>
+                  <li class="nav-item nav-item-portal">
+                    <a href="register.php" class="nav-link nav-link-portal"><span class="fa fa-user pr-2"></span>Register</a>
+                  </li>';     
+            }
+          ?>
           <li class="nav-item nav-item-portal">
             <a href="jobprovider_home.php" class="nav-link nav-link-portal"><span class="fa fa-address-card pr-2"></span>JobProvider</a>
           </li>
@@ -209,34 +240,34 @@
 
 
 <!-- User Modal -->
-    <div class="modal fade" id="LoginModal">
-      <div class="modal-dialog modal-md">
-        <div class="modal-content">
-          <div class="modal-header bg-dark text-white">
-            <h6 class="modal-title">Login as JOBSEEKER</h6>
-            <button class="close" data-dismiss="modal"><span>&times;</span></button>
-          </div>
-          <div class="modal-body">
-            <form>
-              <div class="input-group">
-                <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                <input id="email" type="text" class="form-control" name="email" placeholder="Email">
-              </div>
-              <div class="input-group">
-                <span class="input-group-addon"><i class="fa fa-lock"></i></span>
-                <input id="password" type="password" class="form-control" name="password" placeholder="Password">
-              </div>
-            </form>
-          </div>
-          <div class="modal-footer">
-            <button class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
-            <button class="btn btn-dark btn-sm" data-dismiss="modal">Log In</button>
-          </div>
+
+          <div class="modal fade" id="LoginModal">
+            <div class="modal-dialog modal-md">
+                <div class="modal-content">
+                    <form action="" method="POST">
+                      <div class="modal-header bg-dark text-white">
+                          <h6 class="modal-title">Login</h6>
+                          <button class="close" data-dismiss="modal"><span>&times;</span></button>
+                      </div>
+                      <div class="modal-body">
+                          <div class="input-group">
+                              <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                              <input name="Email" id="email" type="text" class="form-control" name="email" placeholder="Email">
+                          </div>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                            <input name="Pass" id="password" type="password" class="form-control" name="password" placeholder="Password">
+                          </div>
+                          <div><?php echo $GLOBALS['error'];?></div>
+                      </div>
+                      <div class="modal-footer">
+                          <button class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+                          <button name="LoginSubmit" class="btn btn-dark btn-sm">Log In</button>
+                      </div>
+                  </form>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-
-
 
  <script src="js/jquery.min.js"></script>
  <script src="js/popper.min.js"></script>
