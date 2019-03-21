@@ -18,10 +18,18 @@
 <body id="provider_home">
 <?php
     session_start();
-
+    
     if (!isset($_SESSION["UID"]) || $_SESSION["UID"]=="") {
         header("Location: portal.php");
     }
+
+    if (isset($_SESSION['timestamp']) && $_SESSION['timestamp']!="" && (time() - $_SESSION['timestamp'] > 600)) {
+        session_unset();
+        header("Location: portal.php");
+        exit;
+    }
+
+    $_SESSION['timestamp'] = time();
 
     include 'conn.php';
 

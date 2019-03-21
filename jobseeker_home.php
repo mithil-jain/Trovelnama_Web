@@ -19,6 +19,15 @@
 
 <?php
     session_start();
+
+    if (isset($_SESSION['timestamp']) && $_SESSION['timestamp']!="" && (time() - $_SESSION['timestamp'] > 600)) {
+        session_unset();
+        header("Location: portal.php");
+        exit;
+    }
+
+    $_SESSION['timestamp'] = time();
+
     $GLOBALS['error'] = '';
     if (isset($_POST["LoginSubmit"])) {
         echo "<script>$('#LoginModal').modal({backdrop:'static', keyboard:false});</script>";
