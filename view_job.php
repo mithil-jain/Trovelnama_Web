@@ -49,18 +49,31 @@
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item nav-item-portal">
-                        <a href="jobprovider_home.php" class="nav-link nav-link-portal"><span class="fa fa-sticky-note pr-2"></span>Posts</a>
+                        <a href="jobprovider_home.php" class="nav-link nav-link-portal"><span class="fa fa-address-card pr-2"></span>JobProvider</a>
                     </li>
                     <li class="nav-item nav-item-portal">
                         <a href="jobseeker_home.php" class="nav-link nav-link-portal"><span class="fa fa-address-card pr-2"></span>JobSeeker</a>
                     </li>
     
-                    <li class="nav-item nav-item-portal">
-                        <a href="dashboard.php" class="nav-link nav-link-portal"><span class="fa fa-address-card pr-2"></span>My Account</a>
-                    </li>
-                    <li class="nav-item nav-item-portal">
-                        <a href="logout.php" class="nav-link nav-link-portal"><span class="fa fa-address-card pr-2"></span>Log Out</a>
-                    </li>
+                    <?php
+                        if(!isset($_SESSION["UID"]) || $_SESSION["UID"]=="") {
+                            echo '<li class="nav-item nav-item-portal">
+                                        <a href="#home" class="nav-link nav-link-portal" data-toggle="modal" data-target="#LoginModal"><span class="fa fa-sign-in pr-2"></span>Login</a>
+                                    </li>
+                                    <li class="nav-item nav-item-portal">
+                                        <a href="register.php" class="nav-link nav-link-portal"><span class="fa fa-user pr-2"></span>Register</a>
+                                    </li>';         
+                        }
+
+                        else {
+                            echo '<li class="nav-item nav-item-portal">
+                                        <a href="dashboard.php" class="nav-link nav-link-portal"><span class="fa fa-address-card pr-2"></span>My Account</a>
+                                    </li>
+                                    <li class="nav-item nav-item-portal">
+                                        <a href="logout.php" class="nav-link nav-link-portal"><span class="fa fa-address-card pr-2"></span>Log Out</a>
+                                    </li>';
+                        }
+                    ?>
                         
                 </ul>
             </div>
@@ -109,8 +122,11 @@
                     <td><?php echo $row["DateHired"];?></td>
                 </tr>
             </table>
+        </div>
         <div class="col-sm">
-
+            <form action="" method="POST">
+                <button name="Apply">Apply</button>
+            </form>
         </div>
     </div>
 </section>
