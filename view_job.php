@@ -213,26 +213,38 @@
                 }
 
                 else {
-                    $sql = "select count(*) as count from jobapplications where UID=".$_SESSION['UID']." and JID=".$_GET['id'];
-                    $data = mysqli_query($conn, $sql) or die("Server Unreachable");
-                    $temp = mysqli_fetch_assoc($data);
+                    
+                    $sql = "select UID_Finder, Status from job where JID=".$_GET['id'];
+                    $data_temp = mysqli_query($conn, $sql);
+                    $row_temp = mysqli_fetch_assoc($data_temp);
 
-                    if ($temp["count"] > 0) {
-                            echo '<div class="col-sm">
-                                    <span>Applied Successfully.</span>
-                                    <form action="" method="POST">
-                                        <button name="Cancel">Cancel</button>
-                                    </form>
-                                </div>';
+                    if ($row_temp["Status"] == 1 && $row["UID_Finder"] == $_SESSION["UID"]) {
+                        echo "Your application has been accepted.";
                     }
 
                     else {
-                        echo '<div class="col-sm">
-                            <form action="" method="POST">
-                                <button name="Apply">Apply</button>
-                            </form>
-                        </div>';
-                    }   
+                        $sql = "select count(*) as count from jobapplications where UID=".$_SESSION['UID']." and JID=".$_GET['id'];
+                        $data = mysqli_query($conn, $sql) or die("Server Unreachable");
+
+                        $temp = mysqli_fetch_assoc($data);
+
+                        if ($temp["count"] > 0) {
+                                echo '<div class="col-sm">
+                                        <span>Applied Successfully.</span>
+                                        <form action="" method="POST">
+                                            <button name="Cancel">Cancel</button>
+                                        </form>
+                                    </div>';
+                        }
+
+                        else {
+                            echo '<div class="col-sm">
+                                <form action="" method="POST">
+                                    <button name="Apply">Apply</button>
+                                </form>
+                            </div>';
+                        }   
+                    }
                 }
                 mysqli_close($conn);
             }
