@@ -27,14 +27,14 @@
         $row = mysqli_fetch_assoc($data);
 
         if ($row["JID"] == "") {
-            header("Location: portal.php");
+            header("Location: jobseeker_home.php");
         }
 
         mysqli_close($conn);
     }
 
     else {
-        header("Location: portal.php");
+        header("Location: jobseeker_home.php");
     }
 
     include 'session.php';
@@ -48,8 +48,47 @@
         include 'conn.php';
 
         $sql = "INSERT INTO `jobapplications`(`JID`, `UID`, `Date`) VALUES (".$row['JID'].", ".$_SESSION['UID'].",'".date('Y-m-d')."')";
-        echo "$sql";
+
         $data = mysqli_query($conn, $sql) or die("Unable to contact the server.");
+
+        header("Location: view_job.php?id=".$_GET['id']);
+
+        mysqli_close($conn);
+    }
+
+    if (isset($_POST["Done"])) {
+        include 'conn.php';
+
+        $sql = "INSERT INTO `historicdata`(`UID_Finder`, `UID_Provider`, `Title`, `Location`, `Date`, `Duration`, `Description`, `Stipend`, `Status`, `DatePosted`, `DateHired`) SELECT `UID_Finder`, `UID_Provider`, `Title`, `Location`, `DateReq`, `Duration`, `Description`, `Stipend`, `Status`, `DatePosted`, `DateHired` FROM `job` WHERE JID=".$_GET['id'];
+        $data = mysqli_query($conn, $sql) or die("Server Unreachable");
+        
+        $sql = "DELETE FROM `job` WHERE JID=".$_GET['id']; 
+        $data = mysqli_query($conn, $sql) or die("Server Unreachable");
+        $sql = "DELETE FROM jobapplications where JID=".$_GET['id'];
+        $data = mysqli_query($conn, $sql) or die("Server Unreachable");
+        header("Location: jobseeker_home.php");
+
+        mysqli_close($conn);
+    }
+
+    if (isset($_POST["Cancel"])) {
+        
+        include 'conn.php';
+
+        $sql = "DELETE FROM `jobapplications` WHERE UID=".$_SESSION['UID']." and JID=".$_GET['id'];
+        $data = mysqli_query($conn, $sql);
+
+        header("Location: ".$_SERVER['REQUEST_URI']);
+
+        mysqli_close($conn);
+    }
+
+    if (isset($_GET["accept"]) && $_GET["accept"]!="") {
+        
+        include 'conn.php';
+
+        $sql = "UPDATE `job` SET `UID_Finder`=\"".$_GET['accept']."\", `Status`=1, DateHired=\"".date('Y-m-d')."\" WHERE JID=".$_GET['id'];
+        $data = mysqli_query($conn, $sql);
 
         header("Location: view_job.php?id=".$_GET['id']);
 
@@ -126,8 +165,8 @@
                 </tr>
 
                 <tr>
-                    <td><?php echo $row["UID_Provider"];?></td>
-                    <td><?php echo $row["UID_Finder"];?></td>
+                    <td><?php echo '<a href="view_account.php?id='.$row["UID_Provider"].'">'.$row["UID_Provider"].'</a>';?></td>                    
+                    <td><?php echo '<a href="view_account.php?id='.$row["UID_Finder"].'">'.$row["UID_Finder"].'</a>';?></td>                    
                     <td><?php echo $row["Skills"];?></td>
                     <td><?php echo $row["Location"];?></td>
                     <td><?php echo $row["DateReq"];?></td>
@@ -146,25 +185,55 @@
 
                 include 'conn.php';
 
-                $sql = "select count(*) as count from jobapplications where UID=".$_SESSION['UID']." and JID=".$_GET['id'];
-                $data = mysqli_query($conn, $sql) or die("Server Unreachable");
-                $temp = mysqli_fetch_assoc($data);
+                $sql = "select UID_Provider, UID_Finder, Status, DateReq, Duration from job where JID=".$_GET['id'];
+                $data = mysqli_query($conn, $sql);
+                $row = mysqli_fetch_assoc($data);
 
-                if ($temp["count"] > 0) {
-                    echo '<div class="col-sm">
-                            <form action="" method="POST">
-                                <span>Applied Successfully.</span>
-                            </form>
-                        </div>';
+                if ($row['UID_Provider'] == $_SESSION['UID']) {
+
+                    if ($row['Status'] == 1 && date('Y-m-d',strtotime('+'.$row["Duration"].' days',strtotime($row['DateReq']))) > date('Y-m-d') ) {
+                        echo "Cannot remove post until duration period is over.";
+                    }
+
+                    else {
+                        echo '<div class="col-sm">
+                                    <form action="" method="POST">
+                                        <button name="Done">Mark As Done</button>
+                                    </form>
+                                </div>';
+                    }
+                    $sql = "SELECT * FROM `users` WHERE UID IN (select UID from jobapplications where JID=".$_GET['id'].")";
+                    $data = mysqli_query($conn, $sql) or die("Server Error");
+                    while ($row_temp = mysqli_fetch_assoc($data)) {
+                        echo '<br><a href="view_account.php?id='.$row_temp["UID"].'">'.$row_temp["Fname"].' '.$row_temp["Lname"].'</a>'; 
+                                if ($row['UID_Finder']==$row_temp['UID']) {echo "Accepted";}
+                                else if ($row['Status'] == 0) { echo '<a href="'.$_SERVER['REQUEST_URI'].'&accept='.$row_temp["UID"].'">Accept</a>';}
+                    }
+
                 }
 
                 else {
-                    echo '<div class="col-sm">
-                        <form action="" method="POST">
-                            <button name="Apply">Apply</button>
-                        </form>
-                    </div>';
-                }   
+                    $sql = "select count(*) as count from jobapplications where UID=".$_SESSION['UID']." and JID=".$_GET['id'];
+                    $data = mysqli_query($conn, $sql) or die("Server Unreachable");
+                    $temp = mysqli_fetch_assoc($data);
+
+                    if ($temp["count"] > 0) {
+                            echo '<div class="col-sm">
+                                    <span>Applied Successfully.</span>
+                                    <form action="" method="POST">
+                                        <button name="Cancel">Cancel</button>
+                                    </form>
+                                </div>';
+                    }
+
+                    else {
+                        echo '<div class="col-sm">
+                            <form action="" method="POST">
+                                <button name="Apply">Apply</button>
+                            </form>
+                        </div>';
+                    }   
+                }
                 mysqli_close($conn);
             }
          ?>

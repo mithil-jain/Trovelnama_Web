@@ -11,7 +11,7 @@
 
             if (isset($row['UID']) && $row['UID']!='') {
                 $_SESSION["UID"] = $row["UID"];
-                header("Location: dashboard.php");
+                header("Location: ".$_SERVER['REQUEST_URI']);
             }
 
             else {

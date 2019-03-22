@@ -27,14 +27,14 @@
         $row = mysqli_fetch_assoc($data);
 
         if ($row["PID"] == "") {
-            header("Location: portal.php");
+            header("Location: jobprovider_home.php");
         }
 
         mysqli_close($conn);
     }
 
     else {
-        header("Location: portal.php");
+        header("Location: jobprovider_home.php");
     }
 
     include 'session.php';
@@ -48,11 +48,39 @@
         include 'conn.php';
 
         $sql = "INSERT INTO `profileapplications`(`PID`, `UID`, `Date`) VALUES (".$row['PID'].", ".$_SESSION['UID'].",'".date('Y-m-d')."')";
-        echo "$sql";
 
         $data = mysqli_query($conn, $sql) or die("Unable to contact the server.");
 
         header("Location: view_profile.php?id=".$_GET["id"]);
+
+        mysqli_close($conn);
+    }
+
+    if (isset($_POST["Done"])) {
+        include 'conn.php';
+
+        $sql = "INSERT INTO `historicdata`(`UID_Finder`, `UID_Provider`, `Title`, `Location`, `Date`, `Duration`, `Description`, `Status`, `DatePosted`, `DateHired`) SELECT `UID_Finder`, `UID_Provider`, `Title`, `Location`, `DateAvail`, `Duration`, `Experience`, `Status`, `DatePosted`, `DateHired` FROM `profile` WHERE PID=".$_GET['id'];
+        $data = mysqli_query($conn, $sql) or die("Server Unreachable");
+        
+        $sql = "DELETE FROM `profile` WHERE PID=".$_GET['id'];
+        $data = mysqli_query($conn, $sql) or die("Server Unreachable");
+
+        $sql = "DELETE FROM profileapplications where PID=".$_GET['id'];
+        $data = mysqli_query($conn, $sql) or die("Server Unreachable");
+
+        header("Location: jobprovider_home.php");
+
+        mysqli_close($conn);
+    }
+
+    if (isset($_GET["accept"]) && $_GET["accept"]!="") {
+        
+        include 'conn.php';
+
+        $sql = "UPDATE `profile` SET `UID_Provider`=\"".$_GET['accept']."\", `Status`=1, DateHired=\"".date('Y-m-d')."\" WHERE PID=".$_GET['id'];
+        $data = mysqli_query($conn, $sql);
+
+        header("Location: view_profile.php?id=".$_GET['id']);
 
         mysqli_close($conn);
     }
@@ -127,8 +155,8 @@
                 </tr>
 
                 <tr>
-                    <td><?php echo $row["UID_Finder"];?></td>
-                    <td><?php echo $row["UID_Provider"];?></td>
+                    <td><?php echo '<a href="view_account.php?id='.$row["UID_Finder"].'">'.$row["UID_Finder"].'</a>';?></td>
+                    <td><?php echo '<a href="view_account.php?id='.$row["UID_Provider"].'">'.$row["UID_Provider"].'</a>';?></td>                                        
                     <td><?php echo $row["Skills"];?></td>
                     <td><?php echo $row["Location"];?></td>
                     <td><?php echo $row["DateAvail"];?></td>
@@ -147,25 +175,56 @@
 
                 include 'conn.php';
 
-                $sql = "select count(*) as count from profileapplications where UID=".$_SESSION['UID']." and PID=".$_GET['id'];
-                $data = mysqli_query($conn, $sql) or die("Server Unreachable");
-                $temp = mysqli_fetch_assoc($data);
+                $sql = "select UID_Finder, UID_Provider, Status, DateAvail, Duration from profile where PID=".$_GET['id'];
+                $data = mysqli_query($conn, $sql);
+                $row = mysqli_fetch_assoc($data);
 
-                if ($temp["count"] > 0) {
-                    echo '<div class="col-sm">
-                            <form action="" method="POST">
-                                <span>Applied Successfully.</span>
-                            </form>
-                        </div>';
+                if ($row['UID_Finder'] == $_SESSION['UID']) {
+                    
+                    if ($row['Status'] == 1 && date('Y-m-d',strtotime('+'.$row["Duration"].' days',strtotime($row['DateAvail']))) > date('Y-m-d') ) {
+                        echo "Cannot remove post until duration period is over.";
+                    }
+
+                    else {
+                        echo '<div class="col-sm">
+                                    <form action="" method="POST">
+                                        <button name="Done">Mark As Done</button>
+                                    </form>
+                                </div>';
+                    }
+
+                    $sql = "SELECT * FROM `users` WHERE UID IN (select UID from profileapplications where PID=".$_GET['id'].")";
+                    $data = mysqli_query($conn, $sql) or die("Server Error");
+                    while ($row_temp = mysqli_fetch_assoc($data)) {
+                        echo '<br><a href="view_account.php?id='.$row_temp["UID"].'">'.$row_temp["Fname"].' '.$row_temp["Lname"].'</a>'; 
+                                if ($row['UID_Provider']==$row_temp['UID']) {echo "Accepted";}
+                                else if ($row['Status'] == 0) { echo '<a href="'.$_SERVER['REQUEST_URI'].'&accept='.$row_temp["UID"].'">Accept</a>';}
+                    }
                 }
 
                 else {
-                    echo '<div class="col-sm">
-                        <form action="" method="POST">
-                            <button name="Apply">Apply</button>
-                        </form>
-                    </div>';
-                }   
+
+                    $sql = "select count(*) as count from profileapplications where UID=".$_SESSION['UID']." and PID=".$_GET['id'];
+                    $data = mysqli_query($conn, $sql) or die("Server Unreachable");
+                    $temp = mysqli_fetch_assoc($data);
+
+                    if ($temp["count"] > 0) {
+                        echo '<div class="col-sm">
+                                <span>Applied Successfully.</span>
+                                <form action="" method="POST">
+                                    <button name="Cancel">Cancel</button>
+                                </form>
+                            </div>';
+                    }
+
+                    else {
+                        echo '<div class="col-sm">
+                            <form action="" method="POST">
+                                <button name="Apply">Apply</button>
+                            </form>
+                        </div>';
+                    }   
+                }
                 mysqli_close($conn);
             }
          ?>

@@ -133,7 +133,7 @@
 	                            while ($row_profile = mysqli_fetch_assoc($data_profile)) {
 	                                echo
 	                                "<tr><form action='' method=POST>
-	                                <td align='center'>".$row_profile["PID"]."</td>             
+	                                <td align='center'><a href='view_profile.php?id=".$row_profile["PID"]."'>".$row_profile["PID"]."</a></td>             
 	                                <td align='center'>".$row_profile["Title"]."</td>
 	                                <td align='center'>".$row_profile["UID_Finder"]."</td>
 	                                <td align='center'>".$row_profile["Skills"]."</td>
@@ -191,7 +191,7 @@
 	                            while ($row_profile = mysqli_fetch_assoc($data_profile)) {
 	                                echo
 	                                "<tr><form action='' method=POST>
-	                                <td align='center'>".$row_profile["PID"]."</td>             
+                                    <td align='center'><a href='view_profile.php?id=".$row_profile["PID"]."'>".$row_profile["PID"]."</a></td>                        
 	                                <td align='center'>".$row_profile["Title"]."</td>
 	                                <td align='center'>".$row_profile["UID_Finder"]."</td>
 	                                <td align='center'>".$row_profile["Skills"]."</td>
@@ -247,7 +247,7 @@
 	                            while ($row_app = mysqli_fetch_assoc($data_app)) {
 	                                echo
 	                                "<tr><form action='' method=POST>
-	                                <td align='center'>".$row_app["JID"]."</td>             
+                                    <td align='center'><a href='view_job.php?id=".$row_app["JID"]."'>".$row_app["JID"]."</a></td>                                   
 	                                <td align='center'>".$row_app["Title"]."</td>
 	                                <td align='center'>".$row_app["UID_Provider"]."</td>
 	                                <td align='center'>".$row_app["Skills"]."</td>
@@ -304,7 +304,7 @@
 	                            while ($row_app = mysqli_fetch_assoc($data_app)) {
 	                                echo
 	                                "<tr><form action='' method=POST>
-	                                <td align='center'>".$row_app["JID"]."</td>             
+                                    <td align='center'><a href='view_job.php?id=".$row_app["JID"]."'>".$row_app["JID"]."</a></td>                                   
 	                                <td align='center'>".$row_app["Title"]."</td>
 	                                <td align='center'>".$row_app["UID_Provider"]."</td>
 	                                <td align='center'>".$row_app["Skills"]."</td>

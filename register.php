@@ -26,7 +26,7 @@
 	session_start();
 
 	if (isset($_SESSION['UID']) && $_SESSION['UID']!='') {
-		header("Location: portal.php");
+		header("Location: dashboard.php");
 	}
 
 	$GLOBALS['flag'] = 0;
@@ -54,7 +54,7 @@
 
 			if (isset($row['UID']) && $row['UID']!='') {
 				$_SESSION["UID"] = $row["UID"];
-				header("Location: portal.php");
+				header("Location: dashboard.php");
 			}
 
 			else {
@@ -71,13 +71,13 @@
 
         	$_POST["AltContact"] = "NULL";
         }
-        $sql = "INSERT INTO `users`(`Fname`, `Lname`, `Email`, `Pass`, `Addr`, `Contact`, `AltContact`, `DOB`) VALUES (\"".$_POST['Fname']."\", \"".$_POST['Lname']."\", \"".$_POST['Email']."\", \"".$_POST['Pass']."\", \"".$_POST['Addr']."\", ".$_POST['Contact'].", ".$_POST['AltContact'].", \"".$_POST['DOB']."\")";
+        $sql = "INSERT INTO `users`(`Fname`, `Lname`, `Email`, `Pass`, `Addr`, `Contact`, `AltContact`, `DOB`, `DateReg`) VALUES (\"".$_POST['Fname']."\", \"".$_POST['Lname']."\", \"".$_POST['Email']."\", \"".$_POST['Pass']."\", \"".$_POST['Addr']."\", ".$_POST['Contact'].", ".$_POST['AltContact'].", \"".$_POST['DOB']."\", \"".date('Y-m-d')."\")";
 
         $data = mysqli_query($conn, $sql) or PopMsg("The Email-Id or Contact is already registered. Kindly login or try with different Email/Contact.", 1);
 
         if ($GLOBALS['flag'] == 0) {
     	    PopMsg("Successfully Registered!<br>Auto redirect in 5 sec...", 0);
-	    	header("refresh:5; url=http://localhost/TrovelNama_web/portal.php");
+	    	header("refresh:5; url=http://localhost/TrovelNama_web/dashboard.php");
         }
     	mysqli_close($conn);
     }
@@ -133,7 +133,7 @@
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="inputPassword4">Password</label>
-                                <input name="Pass" type="password" class="form-control" placeholder="Password" required>
+                                <input name="Pass" type="password" pattern="[a-z0-9].{8,}" title="A password should be of length greater than 8 and contain alphabets and digits" class="form-control" placeholder="Password" required>
                             </div>
                         </div>
                         <div class="form-group">
@@ -143,7 +143,7 @@
                         <div class="form-row">
                             <div class="form-group col-md-4">
                                 <label for="Contact">Contact</label>
-                                <input name="Contact" type="tel" class="form-control" pattern=".{10,}" required placeholder="99XXXXXXX">
+                                <input name="Contact" type="tel" class="form-control" pattern=".{10,}" title="A phone number must contain exactly 10 digits" required placeholder="99XXXXXXX">
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="Contact"> Alternate Contact</label>

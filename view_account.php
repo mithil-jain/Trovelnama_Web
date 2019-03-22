@@ -23,7 +23,6 @@
         include 'conn.php';
 
         $sql = 'SELECT `UID`, `Fname`, `Lname`, `Email`, `Image`, `Contact` FROM `users` WHERE UID='.$_GET["id"];
-        echo "$sql";
         $data = mysqli_query($conn, $sql) or die("Unable to connect to server.");
         $row = mysqli_fetch_assoc($data);
 
