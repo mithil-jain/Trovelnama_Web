@@ -49,14 +49,10 @@
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item nav-item-portal">
-                        <a href="jobprovider_home.php" class="nav-link nav-link-portal"><span class="fa fa-sticky-note pr-2"></span>Posts</a>
+                        <a href="jobprovider_home.php" class="nav-link nav-link-portal"><span class="fa fa-address-card pr-2"></span>JobProvider</a>
                     </li>
                     <li class="nav-item nav-item-portal">
                         <a href="jobseeker_home.php" class="nav-link nav-link-portal"><span class="fa fa-address-card pr-2"></span>JobSeeker</a>
-                    </li>
-    
-                    <li class="nav-item nav-item-portal">
-                        <a href="dashboard.php" class="nav-link nav-link-portal"><span class="fa fa-address-card pr-2"></span>My Account</a>
                     </li>
                     <li class="nav-item nav-item-portal">
                         <a href="logout.php" class="nav-link nav-link-portal"><span class="fa fa-address-card pr-2"></span>Log Out</a>
@@ -112,34 +108,48 @@
                 <div class="col">
                     <div class="row-sm">
                         <div class="col-sm" style="width: 30vw;"><b>Your Submissions: </b></div>
-                        <table width="100%" cellpadding="2" border="2">
-                            <tr>
-                                <th align='center'>Profile ID</th>
-                                <th align='center'>Title</th>
-                                <th align='center'>Finder's Profile</th>
-                                <th align='center'>Skills</th>
-                                <th align='center'>Location</th>
-                                <th align='center'>Duration</th>
-                                <th align='center'>Date</th>
-                            </tr>
                         <?php
                             include 'conn.php';
-                            $sql = "SELECT * from profile where UID_Finder=".$_SESSION['UID'];
-                            $data_profile = mysqli_query($conn, $sql) or die("Couldn't fetch data.");
-                            while ($row_profile = mysqli_fetch_assoc($data_profile)) {
-                                echo
-                                "<tr><form action='' method=POST>
-                                <td align='center'>".$row_profile["PID"]."</td>             
-                                <td align='center'>".$row_profile["Title"]."</td>
-                                <td align='center'>".$row_profile["UID_Finder"]."</td>
-                                <td align='center'>".$row_profile["Skills"]."</td>
-                                <td align='center'>".$row_profile["Location"]."</td>
-                                <td align='center'>".$row_profile["Duration"]."</td>
-                                <td align='center'>".$row_profile["DateAvail"]."</td>
-                                </form></tr>";
+
+                            $sql = "select count(*) as count from profile where UID_Finder=".$_SESSION['UID'];
+                            $data_profile = mysqli_query($conn, $sql);
+                            $row_profile = mysqli_fetch_assoc($data_profile);
+
+                            if ($row_profile["count"] > 0) {
+                            	echo "<table width='100%' cellpadding='2' border='2'>
+		                            <tr>
+		                                <th align='center'>Profile ID</th>
+		                                <th align='center'>Title</th>
+		                                <th align='center'>Finder's Profile</th>
+		                                <th align='center'>Skills</th>
+		                                <th align='center'>Location</th>
+		                                <th align='center'>Duration</th>
+		                                <th align='center'>Date</th>
+		                            </tr>";
+
+		                        $sql = "SELECT * from profile where UID_Finder=".$_SESSION['UID'];
+	                            $data_profile = mysqli_query($conn, $sql) or die("Couldn't fetch data.");
+
+	                            while ($row_profile = mysqli_fetch_assoc($data_profile)) {
+	                                echo
+	                                "<tr><form action='' method=POST>
+	                                <td align='center'>".$row_profile["PID"]."</td>             
+	                                <td align='center'>".$row_profile["Title"]."</td>
+	                                <td align='center'>".$row_profile["UID_Finder"]."</td>
+	                                <td align='center'>".$row_profile["Skills"]."</td>
+	                                <td align='center'>".$row_profile["Location"]."</td>
+	                                <td align='center'>".$row_profile["Duration"]."</td>
+	                                <td align='center'>".$row_profile["DateAvail"]."</td>
+	                                </form></tr>";
+	                            }
+
+	                            echo "</table>";
+	                        }
+
+                            else {
+                            	echo "Nothing to display";
                             }
                         ?>
-                        </table>
                     </div>
                 </div>
             </div>
@@ -156,34 +166,47 @@
                 <div class="col">
                     <div class="row-sm">
                         <div class="col-sm" style="width: 30vw;"><b>People who seeked you out: </b></div>
-                        <table width="100%" cellpadding="2" border="2">
-                            <tr>
-                                <th align='center'>Profile ID</th>
-                                <th align='center'>Title</th>
-                                <th align='center'>Finder's Profile</th>
-                                <th align='center'>Skills</th>
-                                <th align='center'>Location</th>
-                                <th align='center'>Duration</th>
-                                <th align='center'>Date</th>
-                            </tr>
                         <?php
+                        	
                             include 'conn.php';
-                            $sql = "SELECT * from profile where PID in (SELECT PID from profileapplications WHERE UID=".$_SESSION['UID'].")";
+
+                            $sql = "SELECT count(*) as count from profile where PID in (SELECT PID from profileapplications WHERE UID=".$_SESSION['UID'].")";
                             $data_profile = mysqli_query($conn, $sql);
-                            while ($row_profile = mysqli_fetch_assoc($data_profile)) {
-                                echo
-                                "<tr><form action='' method=POST>
-                                <td align='center'>".$row_profile["PID"]."</td>             
-                                <td align='center'>".$row_profile["Title"]."</td>
-                                <td align='center'>".$row_profile["UID_Finder"]."</td>
-                                <td align='center'>".$row_profile["Skills"]."</td>
-                                <td align='center'>".$row_profile["Location"]."</td>
-                                <td align='center'>".$row_profile["Duration"]."</td>
-                                <td align='center'>".$row_profile["DateAvail"]."</td>
-                                </form></tr>";
-                            }
+                            $row_profile = mysqli_fetch_assoc($data_profile);
+
+                            if ($row_profile["count"] > 0) {
+                            	echo "<table width='100%' cellpadding='2' border='2'>
+		                            <tr>
+		                                <th align='center'>Profile ID</th>
+		                                <th align='center'>Title</th>
+		                                <th align='center'>Finder's Profile</th>
+		                                <th align='center'>Skills</th>
+		                                <th align='center'>Location</th>
+		                                <th align='center'>Duration</th>
+		                                <th align='center'>Date</th>
+		                            </tr>";
+
+		                    	$sql = "SELECT * from profile where PID in (SELECT PID from profileapplications WHERE UID=".$_SESSION['UID'].")";
+	                            $data_profile = mysqli_query($conn, $sql);
+	                            while ($row_profile = mysqli_fetch_assoc($data_profile)) {
+	                                echo
+	                                "<tr><form action='' method=POST>
+	                                <td align='center'>".$row_profile["PID"]."</td>             
+	                                <td align='center'>".$row_profile["Title"]."</td>
+	                                <td align='center'>".$row_profile["UID_Finder"]."</td>
+	                                <td align='center'>".$row_profile["Skills"]."</td>
+	                                <td align='center'>".$row_profile["Location"]."</td>
+	                                <td align='center'>".$row_profile["Duration"]."</td>
+	                                <td align='center'>".$row_profile["DateAvail"]."</td>
+	                                </form></tr>";
+	                            }
+	                            echo "</table>";
+	                        }
+
+	                        else {
+	                            	echo "Nothing to display";
+	                        }
                         ?>
-                        </table>
                     </div>
                 </div>
             </div>
@@ -200,33 +223,49 @@
                 <div class="col">
                     <div class="row-sm">
                         <div class="col-sm" style="width: 30vw"><b>Your Jobs: </b></div>
-                        <table width="100%" cellpadding="2" border="2">
-                            <tr>
-                                <th align='center'>Job ID</th>
-                                <th align='center'>Title</th>
-                                <th align='center'>Job Provider</th>
-                                <th align='center'>Skills</th>
-                                <th align='center'>Location</th>
-                                <th align='center'>Duration</th>
-                                <th align='center'>Date</th>
-                            </tr>
                         <?php
-                            $sql = "SELECT * from job where UID_Provider=".$_SESSION['UID'] or die("Unable to fetch data.");
+
+                            $sql = "SELECT count(*) as count from job where UID_Provider=".$_SESSION['UID'];
+                            
                             $data_app = mysqli_query($conn, $sql);
-                            while ($row_app = mysqli_fetch_assoc($data_app)) {
-                                echo
-                                "<tr><form action='' method=POST>
-                                <td align='center'>".$row_app["JID"]."</td>             
-                                <td align='center'>".$row_app["Title"]."</td>
-                                <td align='center'>".$row_app["UID_Provider"]."</td>
-                                <td align='center'>".$row_app["Skills"]."</td>
-                                <td align='center'>".$row_app["Location"]."</td>
-                                <td align='center'>".$row_app["Duration"]."</td>
-                                <td align='center'>".$row_app["DateReq"]."</td>
-                                </form></tr>";
+                            $row_app = mysqli_fetch_assoc($data_app);
+
+                            if ($row_app["count"] > 0) {
+                            	echo "<table width='100%' cellpadding='2' border='2'>
+			                            <tr>
+			                                <th align='center'>Job ID</th>
+			                                <th align='center'>Title</th>
+			                                <th align='center'>Job Provider</th>
+			                                <th align='center'>Skills</th>
+			                                <th align='center'>Location</th>
+			                                <th align='center'>Duration</th>
+			                                <th align='center'>Date</th>
+			                            </tr>";
+
+			                    $sql = "SELECT * from job where UID_Provider=".$_SESSION['UID'];
+	                            $data_app = mysqli_query($conn, $sql) or die("Unable to fetch data.");
+	                            while ($row_app = mysqli_fetch_assoc($data_app)) {
+	                                echo
+	                                "<tr><form action='' method=POST>
+	                                <td align='center'>".$row_app["JID"]."</td>             
+	                                <td align='center'>".$row_app["Title"]."</td>
+	                                <td align='center'>".$row_app["UID_Provider"]."</td>
+	                                <td align='center'>".$row_app["Skills"]."</td>
+	                                <td align='center'>".$row_app["Location"]."</td>
+	                                <td align='center'>".$row_app["Duration"]."</td>
+	                                <td align='center'>".$row_app["DateReq"]."</td>
+	                                </form></tr>";
+	                            }
+
+	                            echo "</table>";
+	                        }
+
+                            else {
+                            	echo "Nothing to display";
                             }
+                        
+
                         ?>
-                        </table>
                     </div>
                 </div>
             </div>
@@ -243,34 +282,48 @@
                 <div class="col">
                     <div class="row-sm">
                         <div class="col-sm" style="width: 30vw"><b>Your Job Applications: </b></div>
-                        <table width="100%" cellpadding="2" border="2">
-                            <tr>
-                                <th align='center'>Job ID</th>
-                                <th align='center'>Title</th>
-                                <th align='center'>Job Provider</th>
-                                <th align='center'>Skills</th>
-                                <th align='center'>Location</th>
-                                <th align='center'>Duration</th>
-                                <th align='center'>Date</th>
-                            </tr>
                         <?php
-                            $sql = "SELECT * from job where JID in (SELECT JID from jobapplications WHERE UID=".$_SESSION['UID'].")";
-                            $data_app = mysqli_query($conn, $sql) or die("Unable to fetch data");
-                            while ($row_app = mysqli_fetch_assoc($data_app)) {
-                                echo
-                                "<tr><form action='' method=POST>
-                                <td align='center'>".$row_app["JID"]."</td>             
-                                <td align='center'>".$row_app["Title"]."</td>
-                                <td align='center'>".$row_app["UID_Provider"]."</td>
-                                <td align='center'>".$row_app["Skills"]."</td>
-                                <td align='center'>".$row_app["Location"]."</td>
-                                <td align='center'>".$row_app["Duration"]."</td>
-                                <td align='center'>".$row_app["DateReq"]."</td>
-                                </form></tr>";
+
+                            $sql = "SELECT count(*) as count from job where JID in (SELECT JID from jobapplications WHERE UID=".$_SESSION['UID'].")";
+                            $data_app = mysqli_query($conn, $sql) or die("Unable to connect to server.");
+                            $row_app = mysqli_fetch_assoc($data_app);
+
+                            if ($row_app["count"] > 0) {
+                            	echo "<table width='100%' cellpadding='2' border='2'>
+			                            <tr>
+			                                <th align='center'>Job ID</th>
+			                                <th align='center'>Title</th>
+			                                <th align='center'>Job Provider</th>
+			                                <th align='center'>Skills</th>
+			                                <th align='center'>Location</th>
+			                                <th align='center'>Duration</th>
+			                                <th align='center'>Date</th>
+			                            </tr>";
+	                            $sql = "SELECT * from job where JID in (SELECT JID from jobapplications WHERE UID=".$_SESSION['UID'].")";
+	                            $data_app = mysqli_query($conn, $sql) or die("Unable to fetch data");
+	                            while ($row_app = mysqli_fetch_assoc($data_app)) {
+	                                echo
+	                                "<tr><form action='' method=POST>
+	                                <td align='center'>".$row_app["JID"]."</td>             
+	                                <td align='center'>".$row_app["Title"]."</td>
+	                                <td align='center'>".$row_app["UID_Provider"]."</td>
+	                                <td align='center'>".$row_app["Skills"]."</td>
+	                                <td align='center'>".$row_app["Location"]."</td>
+	                                <td align='center'>".$row_app["Duration"]."</td>
+	                                <td align='center'>".$row_app["DateReq"]."</td>
+	                                </form></tr>";
+	                            }
+
+	                            echo "</table>";
                             }
+
+                            else {
+                            	echo "Nothing to display";
+                            }
+
                             mysqli_close($conn);
                         ?>
-                        </table>
+                        
                     </div>
                 </div>
             </div>

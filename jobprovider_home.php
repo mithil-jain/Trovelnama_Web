@@ -20,37 +20,13 @@
 <?php
   	session_start();
 
-    if (isset($_SESSION['timestamp']) && $_SESSION['timestamp']!="" && (time() - $_SESSION['timestamp'] > 600)) {
-        session_unset();
-        header("Location: portal.php");
-        exit;
+    include 'session.php';
+
+    $GLOBALS['error'] = '';
+    if (isset($_POST["LoginSubmit"])) {
+        include 'login.php';
     }
-
-    $_SESSION['timestamp'] = time();
-
-	$GLOBALS['error'] = '';
-	if (isset($_POST["LoginSubmit"])) {
-		echo "<script>$('#LoginModal').modal({backdrop:'static', keyboard:false});</script>";
-
-		if (isset($_POST["Email"]) && isset($_POST["Pass"]) && $_POST["Email"]!="" && $_POST["Pass"]!="") {
-			include 'conn.php';
-			
-			$sql = "select UID from users where Email=\"".$_POST["Email"]."\" and Pass=\"".$_POST["Pass"]."\"";
-			$data = mysqli_query($conn, $sql) or die();
-			$row = mysqli_fetch_assoc($data);
-
-			if (isset($row['UID']) && $row['UID']!='') {
-				$_SESSION["UID"] = $row["UID"];
-				header("Location: portal.php");
-			}
-
-			else {
-				$GLOBALS['error'] = 'Incorrect Email/ Password, please try again.';
-			}
-
-			mysqli_close($conn);
-		}
-	}
+	
 ?>
     <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top navbar-portal">
@@ -61,9 +37,6 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item nav-item-portal">
-                        <a href="jobprovider_home.php" class="nav-link nav-link-portal"><span class="fa fa-sticky-note pr-2"></span>Posts</a>
-                    </li>
                     <li class="nav-item nav-item-portal">
                         <a href="jobseeker_home.php" class="nav-link nav-link-portal"><span class="fa fa-address-card pr-2"></span>JobSeeker</a>
                     </li>
@@ -139,7 +112,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-2">
-                                    <div class="btn btn-dark btn-md btn-block mt-4">Hire</div>
+                                    <a class="btn btn-dark btn-md btn-block mt-4" href="view_profile.php?id='.$row["PID"].'" style="text-decoration: none; color: white;">View Details</a>
                                 </div>
                             </div>
                         </section>';

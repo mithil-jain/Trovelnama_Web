@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Job Seeker | Trovelnama</title>
+    <title>Job Provider | Trovelnama</title>
     <link rel="stylesheet" href="css/font-awesome.min.css">
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/bold_font.css">
@@ -14,11 +14,29 @@
     <link href="img/apple-touch-icon.png" rel="apple-touch-icon">
 
 </head>
-<body id="seeker_home">
 
-
+<body id="provider_home">
 <?php
     session_start();
+    
+     if (isset($_GET["id"]) && $_GET["id"] !="") {
+        include 'conn.php';
+
+        $sql = 'SELECT `UID`, `Fname`, `Lname`, `Email`, `Image`, `Contact` FROM `users` WHERE UID='.$_GET["id"];
+        echo "$sql";
+        $data = mysqli_query($conn, $sql) or die("Unable to connect to server.");
+        $row = mysqli_fetch_assoc($data);
+
+        if ($row["UID"] == "") {
+            header("Location: portal.php");
+        }
+
+        mysqli_close($conn);
+    }
+
+    else {
+        header("Location: portal.php");
+    }
 
     include 'session.php';
 
@@ -26,6 +44,8 @@
     if (isset($_POST["LoginSubmit"])) {
         include 'login.php';
     }
+
+
 ?>
     <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top navbar-portal">
@@ -39,6 +59,9 @@
                     <li class="nav-item nav-item-portal">
                         <a href="jobprovider_home.php" class="nav-link nav-link-portal"><span class="fa fa-address-card pr-2"></span>JobProvider</a>
                     </li>
+                    <li class="nav-item nav-item-portal">
+                        <a href="jobseeker_home.php" class="nav-link nav-link-portal"><span class="fa fa-address-card pr-2"></span>JobSeeker</a>
+                    </li>
                     <?php
                         if(!isset($_SESSION["UID"]) || $_SESSION["UID"]=="") {
                             echo '<li class="nav-item nav-item-portal">
@@ -50,12 +73,12 @@
                         }
 
                         else {
-                        	echo '<li class="nav-item nav-item-portal">
-				                        <a href="dashboard.php" class="nav-link nav-link-portal"><span class="fa fa-address-card pr-2"></span>My Account</a>
-				                    </li>
-				                    <li class="nav-item nav-item-portal">
-				                        <a href="logout.php" class="nav-link nav-link-portal"><span class="fa fa-address-card pr-2"></span>Log Out</a>
-				                    </li>';
+                            echo '<li class="nav-item nav-item-portal">
+                                        <a href="dashboard.php" class="nav-link nav-link-portal"><span class="fa fa-address-card pr-2"></span>My Account</a>
+                                    </li>
+                                    <li class="nav-item nav-item-portal">
+                                        <a href="logout.php" class="nav-link nav-link-portal"><span class="fa fa-address-card pr-2"></span>Log Out</a>
+                                    </li>';
                         }
                     ?>
                 </ul>
@@ -64,63 +87,44 @@
     </nav>
 
 
-<!-- Header -->
-<section class="text-white text-center bg-dark py-3" style="margin-top:70px;">
-    <h1>Available Jobs</h1>
-</section>
+        <!-- Header -->
+    <section class="text-center py-3" style="margin-top:70px;
+        -webkit-box-shadow: 0px 4px 9px 6px rgba(0,0,0,0.3);
+        -moz-box-shadow: 0px 4px 9px 6px rgba(0,0,0,0.3);
+        box-shadow: 0px 4px 9px 6px rgba(0,0,0,0.3);
+         ">
+            <h1><?php  echo $row["Fname"]." ".$row["Lname"];?></h1>
+    </section>
 
-<!-- Posts -->
-
-<section id="Posts">
-    <?php 
-        include 'conn.php';
-
-        $sql = "select * from job";
-        $data = mysqli_query($conn, $sql) or die("Unable to connect");
-        
-        while ($row = mysqli_fetch_assoc($data)) {
-            echo '<section class="bg-dark p-2" id="job_sequence">
-                <div class="text-center job-title bg-light">
-                    <h5 class="py-1">'.$row["Title"].'</h5>
-                </div>
-
-                <div class="row text-center py-2">
-                    <div class="col-md-3">
-                        <div class="container border text-white py-2">
-                            <h6>Skills Required</h6><hr>'.$row["Skills"].'
+<section class="Profile">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-sm">
+                <div><img class=".img-fluid" style="max-width: 100%; height: auto; padding-top: 30px;" src="<?php echo $row['Image'].".jpg";?>" alt="Profile Image"></div>
+            </div>
+            <div class="col-sm container">
+                <div class="col">
+                    <div class="row-sm">
+                        <div class="row al">
+                            <div class="col-sm">Email: </div>
+                            <div class="col-sm"><?php echo $row["Email"];?></div>
                         </div>
-                    </div>
-                    <div class="col-md-2">
-                        <div class="container py-2 bg-light">
-                            <h6>Location</h6> <hr> '.$row["Location"].'
+                        <div class="row">
+                            <div class="col-sm">Contact: </div>
+                            <div class="col-sm"><?php echo $row["Contact"];?></div>
                         </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="container border text-white py-2">
-                            <h6>Duration</h6> <hr>'.$row["Duration"].'
-                        </div>
-                    </div>
-                    <div class="col-md-2">
-                        <div class="container bg-light">
-                            <h6 class="pt-2">Stipped:</h6><hr> Rs.'.$row["Stipend"].'
-                        </div>
-                    </div>
-                    <div class="col-md-2">
-                        <a class="btn btn-light btn-md btn-block mt-4" href="view_job.php?id='.$row["JID"].'" style="text-decoration: none; color: black;">View Details</a>
                     </div>
                 </div>
-            </section>';
-        }
-
-        mysqli_close($conn);
-    ?>
-    
+            </div>
+            <div class="col-sm">
+            </div>
+        </div>
+    </div>
 </section>
 
 
-<!-- User Modal -->
-
-                    <div class="modal fade" id="LoginModal">
+<!-- Login Modal -->
+<div class="modal fade" id="LoginModal">
                         <div class="modal-dialog modal-md">
                                 <div class="modal-content">
                                         <form action="" method="POST">
@@ -147,6 +151,8 @@
                                 </div>
                         </div>
                 </div>
+    
+      
 
  <script src="js/jquery.min.js"></script>
  <script src="js/popper.min.js"></script>
