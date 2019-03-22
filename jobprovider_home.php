@@ -26,6 +26,17 @@
     if (isset($_POST["LoginSubmit"])) {
         include 'login.php';
     }
+
+    if (isset($_POST["PostSubmit"])) {
+        include 'conn.php';
+
+        $sql = "INSERT INTO `profile`(`Title`, `UID_Finder`, `Skills`, `Location`, `DateAvail`, `Duration`, `Experience`, `ExpDesc`, `DatePosted`) VALUES (\"".$_POST["Title"]."\", ".$_SESSION['UID'].", \"".$_POST['Skills']."\", \"".$_POST['Location']."\", \"".$_POST['Date']."\", ".$_POST['Duration'].", \"".$_POST['Experience']."\", \"".$_POST['ExpDesc']."\", \"".date('Y-m-d')."\")";
+        $data = mysqli_query($conn, $sql) or die("Can't connect to server");
+
+        header("Location: jobprovider_home.php");
+
+        mysqli_close($conn);
+    }
 	
 ?>
     <!-- Navigation Bar -->
@@ -74,6 +85,12 @@
             <h1>Available Profiles</h1>
         </section>
 
+        <br>
+        <?php 
+            if (isset($_SESSION['UID']) && $_SESSION['UID']!="") {
+                echo '<a href="#home" data-toggle="modal" data-target="#CreatePost">Create Post </a>';    
+            }
+        ?>
         <!-- Posts -->
 
         <section id="Posts">
@@ -148,6 +165,65 @@
                       <div class="modal-footer">
                           <button class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
                           <button name="LoginSubmit" class="btn btn-dark btn-sm">Log In</button>
+                      </div>
+                  </form>
+                </div>
+            </div>
+        </div>
+
+<!-- Create Modal -->
+        <div class="modal fade" id="CreatePost">
+            <div class="modal-dialog modal-md">
+                <div class="modal-content">
+                    <form action="" method="POST">
+                      <div class="modal-header bg-dark text-white">
+                          <h6 class="modal-title">Create Post</h6>
+                          <button class="close" data-dismiss="modal"><span>&times;</span></button>
+                      </div>
+                      <div class="modal-body">
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <label for="Title">Title</label>
+                                <input name="Title" type="text" class="form-control" placeholder="Profile Title" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="Skills">Skills</label>
+                                <input name="Skills" class="form-control" placeholder="Skills, seprated by (,)" required>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="Location">Location</label>
+                                <input name="Location" class="form-control" placeholder="Travelling Location" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="date form-group col-md-6">
+                                <label for="Date">Date Available</label>
+                                <input name="Date" type="date" class="form-control" required>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="Duration">Duration</label>
+                                <input name="Duration" class="form-control" placeholder="Travel Duration(in days)" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="Experience">Experience</label>
+                                <input name="Experience" type="text" class="form-control" placeholder="Experience in field(in months)" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <label for="ExpDesc"> Experience Description</label>
+                                <input name="ExpDesc" type="text" class="form-control" placeholder="Describe your experience(Optional)">
+                            </div>
+                            
+                        </div>
+                      </div>
+                      <div class="modal-footer">
+                          <button class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+                          <button name="PostSubmit" class="btn btn-dark btn-sm">Submit</button>
                       </div>
                   </form>
                 </div>

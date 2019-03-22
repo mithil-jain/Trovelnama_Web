@@ -26,6 +26,17 @@
     if (isset($_POST["LoginSubmit"])) {
         include 'login.php';
     }
+
+    if (isset($_POST["PostSubmit"])) {
+        include 'conn.php';
+
+        $sql = "INSERT INTO `job`(`Title`, `UID_Provider`, `Skills`, `Location`, `DateReq`, `Duration`, `Description`, `Stipend`, `DatePosted`) VALUES (\"".$_POST["Title"]."\", ".$_SESSION['UID'].", \"".$_POST['Skills']."\", \"".$_POST['Location']."\", \"".$_POST['Date']."\", ".$_POST['Duration'].", \"".$_POST['Description']."\", \"".$_POST['Stipend']."\", \"".date('Y-m-d')."\")";
+        $data = mysqli_query($conn, $sql) or die("Can't connect to server");
+
+        header("Location: jobseeker_home.php");
+
+        mysqli_close($conn);
+    }
 ?>
     <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top navbar-portal">
@@ -68,6 +79,13 @@
 <section class="text-white text-center bg-dark py-3" style="margin-top:70px;">
     <h1>Available Jobs</h1>
 </section>
+        <br>
+        <?php 
+            if (isset($_SESSION['UID']) && $_SESSION['UID']!="") {
+                echo '<a href="#home" data-toggle="modal" data-target="#CreatePost">Create Post </a>';    
+            }
+        ?>
+
 
 <!-- Posts -->
 
@@ -147,6 +165,65 @@
                                 </div>
                         </div>
                 </div>
+
+<!-- Create Modal -->
+        <div class="modal fade" id="CreatePost">
+            <div class="modal-dialog modal-md">
+                <div class="modal-content">
+                    <form action="" method="POST">
+                      <div class="modal-header bg-dark text-white">
+                          <h6 class="modal-title">Create Post</h6>
+                          <button class="close" data-dismiss="modal"><span>&times;</span></button>
+                      </div>
+                      <div class="modal-body">
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <label for="Title">Title</label>
+                                <input name="Title" type="text" class="form-control" placeholder="Profile Title" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="Skills">Required Skills</label>
+                                <input name="Skills" class="form-control" placeholder="Skills, seprated by (,)" required>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="Location">Location</label>
+                                <input name="Location" class="form-control" placeholder="Travelling Location" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="date form-group col-md-6">
+                                <label for="Date">Required Date</label>
+                                <input name="Date" type="date" class="form-control" required>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="Duration">Duration</label>
+                                <input name="Duration" class="form-control" placeholder="Travel Duration(in days)" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="Stipend">Stipend</label>
+                                <input name="Stipend" type="number" class="form-control" placeholder="Stipend(in INR)" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <label for="Description"> Job Description</label>
+                                <input name="Description" type="text" class="form-control" placeholder="Describe job required(Optional)">
+                            </div>
+                            
+                        </div>
+                      </div>
+                      <div class="modal-footer">
+                          <button class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+                          <button name="PostSubmit" class="btn btn-dark btn-sm">Submit</button>
+                      </div>
+                  </form>
+                </div>
+            </div>
+        </div>
 
  <script src="js/jquery.min.js"></script>
  <script src="js/popper.min.js"></script>
