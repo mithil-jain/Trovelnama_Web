@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,13 +18,12 @@
 
   <div id="back"></div>
   <div id="front"></div>
-
-<a href="index.php"><img src="img/logo.png" alt="" title="" class="fixed-top mt-4 ml-4" /></img></a>
-
-
+    <a href="index.php"><img src="img/logo.png" alt="" title="" class="fixed-top mt-4 ml-4"></a>
+    
+<!--
 <div class="container-fluid">
 
-  <!-- <div class="flex">
+ <div class="flex">
     <div class="row">
 
       <a class="btn btn-light btn-lg flexitem" href="jobseeker_home.php"><span class="fa fa-briefcase mr-3"></span>JobSeeker</a>
@@ -36,9 +35,9 @@
       <a class="btn btn-light btn-lg flexitem" href="jobprovider_home.php"><span class="fa fa-address-card mr-3"></span>JobProvider</a>
         
     </div>
-  </div> -->
+  </div>
 
-  <div class="row">
+ <div class="row">
     <div class="col-md-4"></div>
     <div class="col-md-4">
       <div class="container text-center container-top">
@@ -57,6 +56,7 @@
     </div>
     <div class="col-md-4"></div>
   </div>
+    
 
 </div>
 
@@ -64,8 +64,8 @@
 
 
 
-<script src="js/jquery.min.js"></script>
+<!--<script src="js/jquery.min.js"></script>
 <script src="js/popper.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
+<script src="js/bootstrap.min.js"></script>-->
 </body>
 </html>

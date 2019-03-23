@@ -38,7 +38,7 @@
     <div class="container">
 
       <div id="logo" class="pull-left">
-        <a href="#hero"><img src="img/logo.png" alt="" title="" /></img></a>
+        <a href="#hero"><img src="img/logo.png" alt="" title="" /></a>
         <!-- Uncomment below if you prefer to use a text logo -->
         <!-- <h1><a href="#hero">Trovelnama</a></h1> -->
       </div>
@@ -67,7 +67,7 @@
             <div class="d-flex justify-content-center">
               <div class="searchbar">
                 <input class="search_input" type="text" name="" placeholder="Search...">
-                <a href="#" class="search_icon"><i class="fa fa-search"></i>&nbsp&nbsp&nbspSearch...&nbsp&nbsp</a>
+                <a href="#" class="search_icon"><i class="fa fa-search"></i></a>
               </div>
             </div>
 
@@ -190,8 +190,9 @@
             <h3 class="cta-title">Call To Action</h3>
             <p class="cta-text"> Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
           </div>
-          <div class="col-lg-3 cta-btn-container text-center">
-            <a class="cta-btn align-middle" href="portal.php">Go to Job Portal</a>
+          <div class="col-lg-3  ">
+            <a class="cta-btn align-middle" href="jobseeker_home.php">Job Seeker</a>
+            <a class="cta-btn align-middle" href="jobprovider_home.php">Job provider</a>
           </div>
         </div>
 

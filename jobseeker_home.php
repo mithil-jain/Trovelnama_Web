@@ -6,13 +6,22 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Job Seeker | Trovelnama</title>
     <link rel="stylesheet" href="css/font-awesome.min.css">
-    <link rel="stylesheet" href="css/bootstrap.css">
-    <link rel="stylesheet" href="css/bold_font.css">
-    <link rel="stylesheet" href="css/style_portal.css">
+    <link rel="stylesheet" href="css/bootstrap.css">-->
+<!--    <link rel="stylesheet" href="css/bold_font.css">-->
+<!--    <link rel="stylesheet" href="css/style_portal.css">-->
 
     <link href="img/favicon.png" rel="icon">
-    <link href="img/apple-touch-icon.png" rel="apple-touch-icon">
-
+<!--    <link href="img/apple-touch-icon.png" rel="apple-touch-icon">-->
+    <style>
+        .cardshadow{
+            box-shadow:2px 2px 5px black;
+            transform:scale(1);
+            transition:0.5s ease;
+        }
+        .cardshadow:hover{
+            transform:scale(1.02);
+        }
+    </style>
 </head>
 <body id="seeker_home">
 
@@ -41,7 +50,8 @@
     <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top navbar-portal">
         <div class="container">
-            <a href="index.php" class="navbar-brand"><img src="img/logo.png" /></img> JobSeeker</a>
+            <a href="index.php" class="navbar-brand"><img src="img/logo.png"></a>
+<!--            <a href="index.php" class="navbar-brand">JobSeeker</a>-->
             <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -76,10 +86,10 @@
 
 
 <!-- Header -->
-<section class="text-white text-center bg-dark py-3" style="margin-top:70px;">
-    <h1>Available Jobs</h1>
-</section>
-        <br>
+    <div class="p-4">
+        <section class="text-success text-center mt-5 w-100">
+            <h1>Available Jobs</h1>
+        </section>
         <?php 
             if (isset($_SESSION['UID']) && $_SESSION['UID']!="") {
                 echo '<a href="#home" data-toggle="modal" data-target="#CreatePost">Create Post </a>';    
@@ -90,6 +100,7 @@
 <!-- Posts -->
 
 <section id="Posts">
+    <div class="card-deck">
     <?php 
         include 'conn.php';
 
@@ -97,43 +108,22 @@
         $data = mysqli_query($conn, $sql) or die("Unable to connect");
         
         while ($row = mysqli_fetch_assoc($data)) {
-            echo '<section class="bg-dark p-2" id="job_sequence">
-                <div class="text-center job-title bg-light">
-                    <h5 class="py-1">'.$row["Title"].'</h5>
-                </div>
-
-                <div class="row text-center py-2">
-                    <div class="col-md-3">
-                        <div class="container border text-white py-2">
-                            <h6>Skills Required</h6><hr>'.$row["Skills"].'
-                        </div>
-                    </div>
-                    <div class="col-md-2">
-                        <div class="container py-2 bg-light">
-                            <h6>Location</h6> <hr> '.$row["Location"].'
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="container border text-white py-2">
-                            <h6>Duration</h6> <hr>'.$row["Duration"].'
-                        </div>
-                    </div>
-                    <div class="col-md-2">
-                        <div class="container bg-light">
-                            <h6 class="pt-2">Stipped:</h6><hr> Rs.'.$row["Stipend"].'
-                        </div>
-                    </div>
-                    <div class="col-md-2">
-                        <a class="btn btn-light btn-md btn-block mt-4" href="view_job.php?id='.$row["JID"].'" style="text-decoration: none; color: black;">View Details</a>
-                    </div>
-                </div>
-            </section>';
+            echo '<div class="cardshadow card bg-light text-center shadow-lg p-3 mt-5 rounded" style="max-width:33.33%" id="job_sequence">
+                    <h4 class="text-uppercase font-weight-bold">'.$row["Title"].'</h5>
+                    <h6>Skills Required:'.$row["Skills"].'</h6>
+                    <h6>Location:'.$row["Location"].'</h6>
+                    <h6>Duration:'.$row["Duration"].'</h6>
+                    <h6>Stipped: Rs.'.$row["Stipend"].' </h6>
+                    <a class="btn btn-primary w-50 ml-auto mr-auto" href="view_job.php?id='.$row["JID"].'" style="text-decoration: none; color: black;">View Details</a>
+                </div>';
         }
-
+    
         mysqli_close($conn);
     ?>
+    </div>
     
 </section>
+    </div>
 
 
 <!-- User Modal -->
@@ -223,9 +213,28 @@
                   </form>
                 </div>
             </div>
-        </div>
-
+    </div>
+<!--
+    <div class="card-deck">
+                <div class="card bg-primary" id="job_sequence">
+                    <h5>'.$row["Title"].'</h5>
+                    <h6>Skills Required</h6>'.$row["Skills"].'
+                    <h6>Location</h6>'.$row["Location"].'
+                    <h6>Duration</h6>'.$row["Duration"].'
+                    <h6>Stipped:</h6> Rs.'.$row["Stipend"].'
+                    <a href="view_job.php?id='.$row["JID"].'" style="text-decoration: none; color: black;">View Details</a>
+                </div>
+    <div class="card bg-primary" id="job_sequence">
+                    <h5>'.$row["Title"].'</h5>
+                    <h6>Skills Required</h6>'.$row["Skills"].'
+                    <h6>Location</h6>'.$row["Location"].'
+                    <h6>Duration</h6>'.$row["Duration"].'
+                    <h6>Stipped:</h6> Rs.'.$row["Stipend"].'
+                    <a href="view_job.php?id='.$row["JID"].'" style="text-decoration: none; color: black;">View Details</a>
+                </div>
+                </div>-->
  <script src="js/jquery.min.js"></script>
+
  <script src="js/popper.min.js"></script>
  <script src="js/bootstrap.min.js"></script>
 </body>
