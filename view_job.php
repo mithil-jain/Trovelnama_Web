@@ -98,7 +98,7 @@
     <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top navbar-portal">
         <div class="container">
-            <a href="index.php" class="navbar-brand"><img src="img/logo.png">JobSeeker</a>
+            <a href="index.php" class="navbar-brand"><img src="img/logo.png"></a>
             <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
                 <span class="navbar-toggler-icon"></span>
             </button>
