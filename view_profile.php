@@ -136,33 +136,50 @@
     <section class="Profile">
         <div class="container">
             <div class="col-sm" style="width: 30vw; padding-top: 30px;"></div>
-                <table class="table">
+                <table class="table text-center">
                     <tr>
                         <th scope="col">Posted by</th>
-                        <th scope="col">Job Provider</th>
-                        <th scope="col">Skills</th>
-                        <th scope="col">Location</th>
-                        <th scope="col">Date Start</th>
-                        <th scope="col">Duration</th>
-                        <th scope="col">Experience</th>
-                        <th scope="col">Description</th>
-                        <th scope="col">Status</th>
-                        <th scope="col">Date Posted</th>
-                        <th scope="col">Date Hired</th>
+                        <td ><?php echo '<a href="view_account.php?id='.$row["UID_Finder"].'">'.$row["UID_Finder"].'</a>';?></td>
                     </tr>
-
                     <tr>
-        <td ><?php echo '<a href="view_account.php?id='.$row["UID_Finder"].'">'.$row["UID_Finder"].'</a>';?></td>
-                        <td ><?php echo '<a href="view_account.php?id='.$row["UID_Provider"].'">'.$row["UID_Provider"].'</a>';?></td>                                        
+                        <th scope="col">Job Provider</th>
+                        <td ><?php echo '<a href="view_account.php?id='.$row["UID_Provider"].'">'.$row["UID_Provider"].'</a>';?></td> 
+                    </tr>
+                    <tr>
+                        <th scope="col">Skills</th>
                         <td><?php echo $row["Skills"];?></td>
+                    </tr>
+                    <tr>
+                        <th scope="col">Location</th>
                         <td><?php echo $row["Location"];?></td>
+                    </tr>
+                    <tr>
+                        <th scope="col">Date Start</th>
                         <td><?php echo $row["DateAvail"];?></td>
+                    </tr>
+                    <tr>
+                        <th scope="col">Duration</th>
                         <td><?php echo $row["Duration"];?></td>
+                    </tr>
+                    <tr>
+                        <th scope="col">Experience</th>
                         <td><?php echo $row["Experience"];?></td>
-                        <td><?php echo $row["ExpDesc"];?></td>
-                        <td><?php echo $row["Status"];?></td>
-                        <td><?php echo $row["DatePosted"];?></td>
-                        <td><?php echo $row["DateHired"];?></td>
+                    </tr>
+                    <tr>
+                        <th scope="col">Description</th>
+                        <td><?php echo $row["Experience"];?></td>
+                    </tr>
+                    <tr>
+                        <th scope="col">Status</th>
+                        <td><?php echo $row["Experience"];?></td>
+                    </tr>
+                    <tr>
+                        <th scope="col">Date Posted</th>
+                        <td><?php echo $row["Experience"];?></td>
+                    </tr>
+                    <tr>    
+                        <th scope="col">Date Hired</th>
+                        <td><?php echo $row["Experience"];?></td>
                     </tr>
                 </table>
             </div>
