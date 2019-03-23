@@ -259,12 +259,13 @@
                     mysqli_close($conn);
                 }
              ?>
-        </div>
     </section>
+    </div>
+   
 
 <!-- User Modal -->
 
-                    <div class="modal fade" id="LoginModal">
+    <div class="modal fade" id="LoginModal">
                         <div class="modal-dialog modal-md">
                                 <div class="modal-content">
                                         <form action="" method="POST">

@@ -98,7 +98,7 @@
     <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top navbar-portal">
         <div class="container">
-            <a href="index.php" class="navbar-brand"><img src="img/logo.png" /></img> JobSeeker</a>
+            <a href="index.php" class="navbar-brand"><img src="img/logo.png">JobSeeker</a>
             <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -138,43 +138,57 @@
 
 
         <!-- Header -->
-    <section class="text-center py-3" style="margin-top:70px;
-        -webkit-box-shadow: 0px 4px 9px 6px rgba(0,0,0,0.3);
-        -moz-box-shadow: 0px 4px 9px 6px rgba(0,0,0,0.3);
-        box-shadow: 0px 4px 9px 6px rgba(0,0,0,0.3);
-         ">
-            <h1>Job: <?php echo $row["Title"]; ?></h1>
+    <div class="p-4">
+    <section class="text-success text-center mt-5 w-100">
+        <h1 class="mt-2">Job: <?php echo $row["Title"]; ?></h1>
     </section>
 
 <section class="Profile">
     <div class="container">
         <div class="col-sm" style="width: 30vw; padding-top: 30px;"></div>
-            <table width="80%" border="2">
+            <table class="table w-75 text-center">
                 <tr>
-                    <th>Job Provider</th>
-                    <th>Seeked by</th>
-                    <th>Skills</th>
-                    <th>Location</th>
-                    <th>Date Start</th>
-                    <th>Duration</th>
-                    <th>Description</th>
-                    <th>Stipend</th>
-                    <th>Status</th>
-                    <th>Date Posted</th>
-                    <th>Date Hired</th>
+                    <th class="w-50">Job Provider</th>
+                    <td><?php echo '<a href="view_account.php?id='.$row["UID_Provider"].'">'.$row["UID_Provider"].'</a>';?></td>
                 </tr>
-
                 <tr>
-                    <td><?php echo '<a href="view_account.php?id='.$row["UID_Provider"].'">'.$row["UID_Provider"].'</a>';?></td>                    
-                    <td><?php echo '<a href="view_account.php?id='.$row["UID_Finder"].'">'.$row["UID_Finder"].'</a>';?></td>                    
+                    <th>Seeked by</th>
+                    <td><?php echo '<a href="view_account.php?id='.$row["UID_Finder"].'">'.$row["UID_Finder"].'</a>';?></td> 
+                </tr>
+                <tr>
+                    <th>Skills</th>
                     <td><?php echo $row["Skills"];?></td>
+                </tr>
+                <tr>
+                    <th>Location</th>
                     <td><?php echo $row["Location"];?></td>
+                </tr>
+                <tr>
+                    <th>Date Start</th>
                     <td><?php echo $row["DateReq"];?></td>
+                </tr>
+                <tr>
+                    <th>Duration</th>
                     <td><?php echo $row["Duration"];?></td>
+                </tr>
+                <tr>
+                    <th>Description</th>
                     <td><?php echo $row["Description"];?></td>
+                </tr>
+                <tr>
+                    <th>Stipend</th>
                     <td><?php echo $row["Stipend"];?></td>
+                </tr>
+                <tr>
+                    <th>Status</th>
                     <td><?php echo $row["Status"];?></td>
+                </tr>
+                <tr>    
+                    <th>Date Posted</th>
                     <td><?php echo $row["DatePosted"];?></td>
+                </tr>
+                <tr>
+                    <th>Date Hired</th>
                     <td><?php echo $row["DateHired"];?></td>
                 </tr>
             </table>
@@ -229,18 +243,18 @@
                         $temp = mysqli_fetch_assoc($data);
 
                         if ($temp["count"] > 0) {
-                                echo '<div class="col-sm">
-                                        <span>Applied Successfully.</span>
+                                echo '<div class="col-sm text-center">
+                                        <span class="text-success mb-2">Applied Successfully.</span>
                                         <form action="" method="POST">
-                                            <button name="Cancel">Cancel</button>
+                                            <button class="btn btn-primary" name="Cancel">Cancel</button>
                                         </form>
                                     </div>';
                         }
 
                         else {
-                            echo '<div class="col-sm">
+                            echo '<div class="col-sm text-center">
                                 <form action="" method="POST">
-                                    <button name="Apply">Apply</button>
+                                    <button class="btn btn-primary" name="Apply">Apply</button>
                                 </form>
                             </div>';
                         }   
@@ -249,8 +263,9 @@
                 mysqli_close($conn);
             }
          ?>
+    </section>
     </div>
-</section>
+
 
     
    <!-- User Modal -->

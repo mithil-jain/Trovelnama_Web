@@ -90,13 +90,6 @@
         <section class="text-success text-center mt-5 w-100">
             <h1>Available Jobs</h1>
         </section>
-        <?php 
-            if (isset($_SESSION['UID']) && $_SESSION['UID']!="") {
-                echo '<a href="#home" data-toggle="modal" data-target="#CreatePost">Create Post </a>';    
-            }
-        ?>
-
-
 <!-- Posts -->
 
 <section id="Posts">
@@ -128,7 +121,7 @@
 
 <!-- User Modal -->
 
-                    <div class="modal fade" id="LoginModal">
+    <div class="modal fade" id="LoginModal">
                         <div class="modal-dialog modal-md">
                                 <div class="modal-content">
                                         <form action="" method="POST">
@@ -157,7 +150,7 @@
                 </div>
 
 <!-- Create Modal -->
-        <div class="modal fade" id="CreatePost">
+    <div class="modal fade" id="CreatePost">
             <div class="modal-dialog modal-md">
                 <div class="modal-content">
                     <form action="" method="POST">
@@ -214,6 +207,12 @@
                 </div>
             </div>
     </div>
+    
+    <?php 
+            if (isset($_SESSION['UID']) && $_SESSION['UID']!="") {
+                echo '<div class="text-center"><a href="#home" class="btn btn-primary" data-toggle="modal" data-target="#CreatePost">Create New Post</a></div>';    
+            }
+    ?>
 <!--
     <div class="card-deck">
                 <div class="card bg-primary" id="job_sequence">

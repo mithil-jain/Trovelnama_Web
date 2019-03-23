@@ -90,11 +90,6 @@
         <section class="text-success text-center mt-5 w-100">
             <h1>Available Profiles</h1>
         </section>
-        <?php 
-            if (isset($_SESSION['UID']) && $_SESSION['UID']!="") {
-                echo '<a href="#home" data-toggle="modal" data-target="#CreatePost">Create Post </a>';    
-            }
-        ?>
         <!-- Posts -->
 
         <section id="Posts" class="p-4 pt-0">
@@ -121,11 +116,15 @@
             </div>
         </section>
     </div>
-
+    <?php 
+            if (isset($_SESSION['UID']) && $_SESSION['UID']!="") {
+                echo '<div class="text-center"><a href="#home" class="btn btn-primary" data-toggle="modal" data-target="#CreatePost">Create New Post</a></div>';    
+            }
+    ?>
 
 <!-- User Modal -->
 
-          <div class="modal fade" id="LoginModal">
+    <div class="modal fade" id="LoginModal">
             <div class="modal-dialog modal-md">
                 <div class="modal-content">
                     <form action="" method="POST">
@@ -138,10 +137,10 @@
                               <span class="input-group-addon"><i class="fa fa-user"></i></span>
                               <input name="Email" id="email" type="text" class="form-control" name="email" placeholder="Email">
                           </div>
-                        <div class="input-group">
+                      <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-lock"></i></span>
                             <input name="Pass" id="password" type="password" class="form-control" name="password" placeholder="Password">
-                          </div>
+                      </div>
                           <div><?php echo $GLOBALS['error'];?></div>
                       </div>
                       <div class="modal-footer">
@@ -154,7 +153,7 @@
         </div>
 
 <!-- Create Modal -->
-        <div class="modal fade" id="CreatePost">
+    <div class="modal fade" id="CreatePost">
             <div class="modal-dialog modal-md">
                 <div class="modal-content">
                     <form action="" method="POST">
@@ -211,7 +210,6 @@
                 </div>
             </div>
         </div>
-    </div>
 
  <script src="js/jquery.min.js"></script>
  <script src="js/popper.min.js"></script>
